@@ -49,7 +49,7 @@ img push ユーザ名/レポジトリ名:tag
 s3access.yaml内のkey pairを環境にあわせて更新し、K8sに投入します。
 
 ```bash
-kubectl apply s3access.yaml
+kubectl apply -f s3access.yaml
 ```
 
 `kn` コマンドを使うか、`knative/Service` を作成してサービスを起動します。
