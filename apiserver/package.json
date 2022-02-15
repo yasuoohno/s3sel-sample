@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.49.0",
-    "express": "^4.17.2"
+    "fastify": "^3.27.1"
   }
 }

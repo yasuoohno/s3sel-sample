@@ -1,4 +1,4 @@
-const app = require('express')();
+const app = require('fastify')({ logger: false });
 const { S3Client, SelectObjectContentCommand } = require('@aws-sdk/client-s3');
 const s3 = new S3Client({ region: 'ap-northeast-1' });
 
@@ -27,12 +27,12 @@ async function search_zip(zipcode) {
 app.get('/:zipcode', async (req, res) => {
     const zipcode = req.params.zipcode.replace(/[^0-9]/g, '').substr(0, 7) + '%';
     if (zipcode === '%')
-        res.json([]);
+        return [];
     else
-        res.json(await search_zip(zipcode));
+        return await search_zip(zipcode);
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}...`);
-});
+(async () => {
+    try { await app.listen(PORT); } catch (err) { fastify.log.error(err); process.exit(1); }
+})();
